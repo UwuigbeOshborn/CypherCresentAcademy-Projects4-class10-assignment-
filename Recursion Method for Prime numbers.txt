@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CypherCresentClass10a
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            PrimeNumber(1000);
+        }
+        static int PrimeNumber(int range)
+        {
+            if (range == 2)
+            {
+                Console.Write(range + "\n");
+                return range;
+            }
+            else
+            {
+                for (int i = 2; i < range; i++)
+                {
+                    if (Math.IEEERemainder(range, i) != 0)
+                    {
+                        if (i == range-1)
+                        {
+                            Console.Write(range + ", ");
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                PrimeNumber(range - 1);
+                return range;
+            }
+        }
+    }
+}

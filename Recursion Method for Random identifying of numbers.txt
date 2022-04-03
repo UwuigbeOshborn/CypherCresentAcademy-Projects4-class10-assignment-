@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CypherCresentClass10b
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int numberOfTries;
+            int lowerRange;
+            int upperRange;
+            int lengthOfArray;
+            Console.Write("Please enter possible number of trial: ");
+            numberOfTries = int.Parse(Console.ReadLine());
+
+            Console.Write("\nPlease enter the lower range of the random choices: ");
+            lowerRange = int.Parse(Console.ReadLine());
+
+            Console.Write("\nPlease enter the upper range of the random choices: ");
+            upperRange = int.Parse(Console.ReadLine());
+
+            Console.Write("\nPlease enter the length of array of possile outcome: ");
+            lengthOfArray = int.Parse(Console.ReadLine());
+
+            int[] ArrayOutcome = new int[lengthOfArray];
+
+            for (int i = 0; i < lengthOfArray; i++)
+            {
+                Console.Write("\nPlease enter the elements of an array of possible outcome within the random range: ");
+                ArrayOutcome[i] = int.Parse(Console.ReadLine());
+            }
+
+            RandomNumberIdentifier(numberOfTries, lowerRange, upperRange, ArrayOutcome);
+        }
+        static int RandomNumberIdentifier(int numberOfTries, int lowerRange, int upperRange, params int[] neededItems)
+        {
+            Random RandomNumber = new Random();
+            int length = neededItems.Length;
+            int Pickednumber = RandomNumber.Next(lowerRange, upperRange);
+            int correctPick;
+
+
+            correctPick = 0;
+            foreach (var item in neededItems)
+            {
+                if (item == Pickednumber)
+                {
+                    Console.Write("The lucky number is: " + Pickednumber + "\n");
+                    correctPick = Pickednumber;
+                    return Pickednumber;
+                    //break;
+                }
+            }
+
+            if (numberOfTries == 0)
+            {
+                Console.Write("Number of trial has elasped without any possible outcome, please try again" + "\n");
+                return Pickednumber;
+            }
+
+            else
+            {
+                try
+                {
+                    RandomNumberIdentifier(numberOfTries - 1, lowerRange, upperRange);
+                    return Pickednumber;
+                }
+                catch (StackOverflowException)
+                {
+                    Console.Write("Possibility of outcome is very slim, please try again" + "\n");
+                    return Pickednumber;
+                    throw;
+                }
+            }
+        }
+    }
+}
